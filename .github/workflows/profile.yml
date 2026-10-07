@@ -1,0 +1,41 @@
+name: Update profile card
+
+on:
+  schedule:
+    - cron: "17 */12 * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - profile.config.json
+      - scripts/**
+      - assets/*.gif
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # `sharp` (optional) is only needed when ascii.enabled = true
+      - run: npm install --no-audit --no-fund
+
+      - name: Generate assets/profile.svg
+        run: node scripts/generate.mjs
+        env:
+          # Add a classic PAT with `read:user` as the PROFILE_TOKEN secret to count private contributions.
+          GH_TOKEN: ${{ secrets.PROFILE_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/profile.svg
+          git diff --cached --quiet || (git commit -m "chore: refresh profile card" && git push)

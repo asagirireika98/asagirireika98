@@ -1,0 +1,74 @@
+{
+  "$schema": "./profile.config.schema.json",
+  "username": "asagirireika98",
+  "displayName": "asagiri-reika",
+  "host": "github",
+  "output": "assets/profile.svg",
+  "fields": [
+    {
+      "key": "NAME",
+      "value": "Asagiri reika",
+      "color": "cyan",
+      "quote": false
+    },
+    {
+      "key": "ROLE",
+      "value": "Hobbyist Developer",
+      "color": "blue"
+    },
+    {
+      "key": "FOCUS",
+      "value": "Game Tools & Creative Coding",
+      "color": "yellow"
+    },
+    {
+      "key": "INTERESTS",
+      "value": [
+        "Gacha Games",
+        "Fan Tooling"
+      ],
+      "color": "magenta"
+    }
+  ],
+  "skills": [
+    "TypeScript",
+    "JavaScript",
+    "Python",
+    "Vue"
+  ],
+  "stats": [
+    "contributions",
+    "commits",
+    "repos",
+    "prs",
+    "stars",
+    "issues",
+    "joined",
+    "contributedRepos"
+  ],
+  "languages": {
+    "max": 5,
+    "exclude": [],
+    "colors": {}
+  },
+  "commands": {
+    "intro": "cat /etc/profile.d/{name}",
+    "stats": "./profile --stats --since=1y",
+    "languages": "./profile --languages-by-commit",
+    "ascii": "chafa {file}"
+  },
+  "ascii": {
+    "enabled": true,
+    "source": "assets/art.gif",
+    "cols": 80,
+    "maxFrames": 24,
+    "speed": 5,
+    "invert": false
+  },
+  "footer": {
+    "enabled": true,
+    "prompt": true,
+    "timestamp": true,
+    "timezone": "Asia/Jakarta"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "profile-readme",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/generate.mjs",
+    "preview": "node scripts/generate.mjs --mock"
+  },
+  "optionalDependencies": {
+    "sharp": "^0.33.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

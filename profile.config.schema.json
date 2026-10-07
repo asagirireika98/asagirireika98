@@ -1,0 +1,255 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Terminal profile card config",
+  "type": "object",
+  "required": [
+    "username"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "username": {
+      "type": "string",
+      "description": "GitHub login to pull stats for."
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Used for {name} in the intro command and the SVG title."
+    },
+    "promptUser": {
+      "type": "string",
+      "description": "Shown before @host in the prompt. Defaults to username."
+    },
+    "host": {
+      "type": "string",
+      "default": "github"
+    },
+    "output": {
+      "type": "string",
+      "default": "assets/profile.svg",
+      "description": "Path relative to this config file."
+    },
+    "chipsMaxChars": {
+      "type": "integer",
+      "default": 38,
+      "description": "Max characters per line in the top-right skills box."
+    },
+    "fields": {
+      "type": "array",
+      "description": "KEY=\"value\" lines in the top-left box.",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "value"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "description": "Array renders as KEY=(\"a\" \"b\")."
+          },
+          "color": {
+            "type": "string",
+            "description": "text | muted | green | blue | cyan | yellow | magenta | any CSS color"
+          },
+          "quote": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "description": "Chips in the top-right box. Colors auto-resolve for well-known languages.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "stats": {
+      "type": "array",
+      "description": "Filled left-to-right, two per row.",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "enum": [
+              "contributions",
+              "commits",
+              "repos",
+              "prs",
+              "stars",
+              "issues",
+              "joined",
+              "contributedRepos",
+              "followers",
+              "reviews"
+            ]
+          },
+          {
+            "type": "object",
+            "required": [
+              "key"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "label": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "languages": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "integer",
+          "default": 5
+        },
+        "exclude": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "colors": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "commands": {
+      "type": "object",
+      "description": "Text shown after the $ in each prompt line.",
+      "properties": {
+        "intro": {
+          "type": "string"
+        },
+        "stats": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "string"
+        },
+        "ascii": {
+          "type": "string",
+          "description": "{file} is replaced by the GIF's file name."
+        }
+      }
+    },
+    "labels": {
+      "type": "object",
+      "description": "Titles on the box borders.",
+      "properties": {
+        "fields": {
+          "type": "string"
+        },
+        "skills": {
+          "type": "string"
+        },
+        "stats": {
+          "type": "string"
+        },
+        "activity": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "string"
+        }
+      }
+    },
+    "ascii": {
+      "type": "object",
+      "description": "Optional animated ASCII art rendered from a GIF (needs `sharp`).",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "source": {
+          "type": "string",
+          "description": "GIF path relative to this config file."
+        },
+        "cols": {
+          "type": "integer",
+          "default": 80
+        },
+        "maxFrames": {
+          "type": "integer",
+          "default": 24
+        },
+        "speed": {
+          "type": "number",
+          "default": 1
+        },
+        "invert": {
+          "type": "boolean",
+          "default": false
+        },
+        "charset": {
+          "type": "string",
+          "description": "Light-to-dense character ramp, e.g. \".:-=+*#%@\""
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "description": "Bottom idle prompt (blinking cursor) and the 'updated \u2026' stamp.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "prompt": {
+          "type": "boolean",
+          "default": true
+        },
+        "timestamp": {
+          "type": "boolean",
+          "default": true
+        },
+        "timezone": {
+          "type": "string",
+          "default": "UTC",
+          "description": "IANA zone, e.g. Asia/Jakarta, America/New_York."
+        }
+      }
+    }
+  }
+}
