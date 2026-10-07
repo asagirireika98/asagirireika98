@@ -64,7 +64,7 @@ query($login:String!,$from:DateTime!,$to:DateTime!){
   user(login:$login){
     createdAt
     followers{totalCount}
-    repositories(first:100,ownerAffiliation:OWNER,privacy:PUBLIC){
+    repositories(first:100,privacy:PUBLIC){
       totalCount
       pageInfo{hasNextPage endCursor}
       nodes{stargazerCount}
@@ -90,7 +90,7 @@ query($login:String!,$from:DateTime!,$to:DateTime!){
 const Q_REPOS = `
 query($login:String!,$after:String){
   user(login:$login){
-    repositories(first:100,after:$after,ownerAffiliation:OWNER,privacy:PUBLIC){
+    repositories(first:100,after:$after,privacy:PUBLIC){
       pageInfo{hasNextPage endCursor}
       nodes{stargazerCount}
     }
